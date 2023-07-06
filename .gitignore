@@ -1,0 +1,17 @@
+node_modules
+.env
+coverage
+coverage.json
+typechain
+typechain-types
+
+# Hardhat files
+cache
+artifacts
+
+.idea
+contracts/Minter.sol
+scripts/deploy.ts
+scripts/deployMinter.ts
+scripts/test.ts
+scripts/verifyContract.ts
