@@ -34,24 +34,7 @@ import "@openzeppelin/contracts-upgradeable/interfaces/IERC2981Upgradeable.sol";
 
 // OpenSea operator filter
 import "./extension/DefaultOperatorFiltererUpgradeable.sol";
-
-interface IContract {
-    /// @dev Returns the module type of the contract.
-    function contractType() external pure returns (bytes32);
-
-    /// @dev Returns the version of the contract.
-    function contractVersion() external pure returns (uint8);
-
-    /// @dev Returns the metadata URI of the contract.
-    function contractURI() external view returns (string memory);
-
-    /**
-     *  @dev Sets contract URI for the storefront-level metadata of the contract.
-     *       Only module admin can call this function.
-     */
-    function setContractURI(string calldata _uri) external;
-}
-
+import "./interfaces/IContract.sol";
 
 contract DEMETokenERC721 is
     Initializable,
@@ -121,15 +104,15 @@ contract DEMETokenERC721 is
     /// @dev Token ID => royalty recipient and bps for token
     mapping(uint256 => RoyaltyInfo) private royaltyInfoForToken;
 
-    constructor() {}
-
-    /// @dev Initiliazes the contract, like a constructor.
-    function initialize(
-        address _defaultAdmin,
+    constructor(address _defaultAdmin,
         string memory _name,
         string memory _symbol,
-        string memory _contractURI
-    ) external initializer {
+        string memory _contractURI) initializer {
+
+        primarySaleRecipient = msg.sender;
+        platformFeeRecipient = msg.sender;
+        royaltyRecipient = msg.sender;
+
         // Initialize inherited contracts, most base-like -> most derived.
         __ReentrancyGuard_init();
         __EIP712_init("DEMETokenERC721", "1");
@@ -223,7 +206,7 @@ contract DEMETokenERC721 is
     }
 
     //      =====   Setter functions  =====
-    function setPrimarySaleRecipient(address[] memory _trustedForwarders) external onlyRole(DEFAULT_ADMIN_ROLE) {
+    function setTrustedForwarders(address[] memory _trustedForwarders) external onlyRole(DEFAULT_ADMIN_ROLE) {
         __ERC2771Context_init(_trustedForwarders);
     }
 

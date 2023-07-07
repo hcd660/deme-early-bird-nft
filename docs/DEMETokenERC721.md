@@ -355,25 +355,6 @@ function hasRole(bytes32 role, address account) external view returns (bool)
 |---|---|---|
 | _0 | bool | undefined
 
-### initialize
-
-```solidity
-function initialize(address _defaultAdmin, string _name, string _symbol, string _contractURI) external nonpayable
-```
-
-
-
-*Initiliazes the contract, like a constructor.*
-
-#### Parameters
-
-| Name | Type | Description |
-|---|---|---|
-| _defaultAdmin | address | undefined
-| _name | string | undefined
-| _symbol | string | undefined
-| _contractURI | string | undefined
-
 ### isApprovedForAll
 
 ```solidity
@@ -790,7 +771,7 @@ function setPlatformFeeInfo(address _platformFeeRecipient, uint256 _platformFeeB
 ### setPrimarySaleRecipient
 
 ```solidity
-function setPrimarySaleRecipient(address[] _trustedForwarders) external nonpayable
+function setPrimarySaleRecipient(address _saleRecipient) external nonpayable
 ```
 
 
@@ -801,7 +782,7 @@ function setPrimarySaleRecipient(address[] _trustedForwarders) external nonpayab
 
 | Name | Type | Description |
 |---|---|---|
-| _trustedForwarders | address[] | undefined
+| _saleRecipient | address | undefined
 
 ### setRoyaltyInfoForToken
 
@@ -820,6 +801,22 @@ function setRoyaltyInfoForToken(uint256 _tokenId, address _recipient, uint256 _b
 | _tokenId | uint256 | undefined
 | _recipient | address | undefined
 | _bps | uint256 | undefined
+
+### setTrustedForwarders
+
+```solidity
+function setTrustedForwarders(address[] _trustedForwarders) external nonpayable
+```
+
+
+
+
+
+#### Parameters
+
+| Name | Type | Description |
+|---|---|---|
+| _trustedForwarders | address[] | undefined
 
 ### subscribeToRegistry
 
