@@ -303,8 +303,6 @@ contract DEMETokenERC721 is
         nextTokenIdToMint += 1;
 
         _safeMint(_to, tokenIdToMint);
-
-        emit TokensMinted(_to, tokenIdToMint);
     }
 
     /// @dev Returns the address of the signer of the mint request.
