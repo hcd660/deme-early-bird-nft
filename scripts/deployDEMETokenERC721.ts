@@ -8,15 +8,20 @@ async function main() {
   console.log("\nCaller address: ", caller.address);
   console.log("\n");
 
-  const contractName = "contractName";
-  const symbol = "symbol";
-  const contractUri = "https://v1.api.poppclub.cn/im/deid/popp/metadata/contractUri?contractName=hcd";
+  const contractName = "PoPP Explorer";
+  const symbol = "POPE";
+  const contractUri = "https://test.v1.api.poppclub.cn/im/deid/pass/contract/uri/PoPP-Explorer";
   const gasPriceDeme = "150";//polygon=150 eth=10
   const gasPriceUnit = "gwei";//polygon=150 eth=10
 
   const demeTokenERC721 = await ethers
       .getContractFactory("DEMETokenERC721")
-      .then(f => f.deploy( { gasPrice: ethers.utils.parseUnits(gasPriceDeme, gasPriceUnit)}));
+      .then(f => f.deploy(
+          caller.address
+          , contractName
+          , symbol
+          , contractUri,
+          { gasPrice: ethers.utils.parseUnits(gasPriceDeme, gasPriceUnit)}));
   console.log(
       "Deploying DEMETokenERC721 \ntransaction: ",
       demeTokenERC721.deployTransaction.hash,
@@ -27,16 +32,16 @@ async function main() {
 
   await demeTokenERC721.deployTransaction.wait();
   console.log("\nVerifying contract.\n");
-  await verify(demeTokenERC721.address, []);
+  await verify(demeTokenERC721.address, [caller.address, contractName, symbol, contractUri]);
 
-  const initialize = await demeTokenERC721.connect(caller)
-      .initialize(caller.address, contractName, symbol
-          , contractUri
-          , { gasPrice: ethers.utils.parseUnits(gasPriceDeme, gasPriceUnit), gasLimit: 3000000});
-  console.log(
-      "initialize \ntransaction: ",
-      initialize.hash,
-  );
+  // const initialize = await demeTokenERC721.connect(caller)
+  //     .initialize(caller.address, contractName, symbol
+  //         , contractUri
+  //         , { gasPrice: ethers.utils.parseUnits(gasPriceDeme, gasPriceUnit), gasLimit: 3000000});
+  // console.log(
+  //     "initialize \ntransaction: ",
+  //     initialize.hash,
+  // );
 
 }
 

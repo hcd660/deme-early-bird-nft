@@ -64,18 +64,18 @@ function TRANSFER_ROLE() external view returns (bytes32)
 ### approve
 
 ```solidity
-function approve(address operator, uint256 tokenId) external nonpayable
+function approve(address to, uint256 tokenId) external nonpayable
 ```
 
 
 
-*See {ERC721-approve}.*
+*See {IERC721-approve}.*
 
 #### Parameters
 
 | Name | Type | Description |
 |---|---|---|
-| operator | address | undefined
+| to | address | undefined
 | tokenId | uint256 | undefined
 
 ### balanceOf
@@ -502,23 +502,6 @@ function nextTokenIdToMint() external view returns (uint256)
 |---|---|---|
 | _0 | uint256 | undefined
 
-### operatorRestriction
-
-```solidity
-function operatorRestriction() external view returns (bool)
-```
-
-
-
-
-
-
-#### Returns
-
-| Name | Type | Description |
-|---|---|---|
-| _0 | bool | undefined
-
 ### owner
 
 ```solidity
@@ -653,12 +636,12 @@ function royaltyInfo(uint256 tokenId, uint256 salePrice) external view returns (
 ### safeTransferFrom
 
 ```solidity
-function safeTransferFrom(address from, address to, uint256 tokenId, bytes data) external nonpayable
+function safeTransferFrom(address from, address to, uint256 tokenId, bytes _data) external nonpayable
 ```
 
 
 
-*See {ERC721-_safeTransferFrom}.*
+*See {IERC721-safeTransferFrom}.*
 
 #### Parameters
 
@@ -667,7 +650,7 @@ function safeTransferFrom(address from, address to, uint256 tokenId, bytes data)
 | from | address | undefined
 | to | address | undefined
 | tokenId | uint256 | undefined
-| data | bytes | undefined
+| _data | bytes | undefined
 
 ### setApprovalForAll
 
@@ -677,7 +660,7 @@ function setApprovalForAll(address operator, bool approved) external nonpayable
 
 
 
-*See {ERC721-setApprovalForAll}.*
+*See {IERC721-setApprovalForAll}.*
 
 #### Parameters
 
@@ -718,22 +701,6 @@ function setDefaultRoyaltyInfo(address _royaltyRecipient, uint256 _royaltyBps) e
 |---|---|---|
 | _royaltyRecipient | address | undefined
 | _royaltyBps | uint256 | undefined
-
-### setOperatorRestriction
-
-```solidity
-function setOperatorRestriction(bool _restriction) external nonpayable
-```
-
-
-
-
-
-#### Parameters
-
-| Name | Type | Description |
-|---|---|---|
-| _restriction | bool | undefined
 
 ### setOwner
 
@@ -817,22 +784,6 @@ function setTrustedForwarders(address[] _trustedForwarders) external nonpayable
 | Name | Type | Description |
 |---|---|---|
 | _trustedForwarders | address[] | undefined
-
-### subscribeToRegistry
-
-```solidity
-function subscribeToRegistry(address _subscription) external nonpayable
-```
-
-
-
-
-
-#### Parameters
-
-| Name | Type | Description |
-|---|---|---|
-| _subscription | address | undefined
 
 ### supportsInterface
 
@@ -965,7 +916,7 @@ function transferFrom(address from, address to, uint256 tokenId) external nonpay
 
 
 
-*See {ERC721-_transferFrom}.*
+*See {IERC721-transferFrom}.*
 
 #### Parameters
 
@@ -1072,22 +1023,6 @@ event FlatPlatformFeeUpdated(address platformFeeRecipient, uint256 flatFee)
 |---|---|---|
 | platformFeeRecipient  | address | undefined |
 | flatFee  | uint256 | undefined |
-
-### OperatorRestriction
-
-```solidity
-event OperatorRestriction(bool restriction)
-```
-
-
-
-
-
-#### Parameters
-
-| Name | Type | Description |
-|---|---|---|
-| restriction  | bool | undefined |
 
 ### OwnerUpdated
 
@@ -1282,24 +1217,5 @@ event Transfer(address indexed from, address indexed to, uint256 indexed tokenId
 | to `indexed` | address | undefined |
 | tokenId `indexed` | uint256 | undefined |
 
-
-
-## Errors
-
-### OperatorNotAllowed
-
-```solidity
-error OperatorNotAllowed(address operator)
-```
-
-
-
-
-
-#### Parameters
-
-| Name | Type | Description |
-|---|---|---|
-| operator | address | undefined |
 
 

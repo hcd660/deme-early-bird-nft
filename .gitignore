@@ -13,5 +13,6 @@ artifacts
 contracts/Minter.sol
 scripts/deploy.ts
 scripts/deployMinter.ts
-scripts/test.ts
+scripts/mint.ts
 scripts/verifyContract.ts
+scripts/grantMintRole.ts
