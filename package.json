@@ -60,6 +60,7 @@
     "@nomicfoundation/hardhat-verify": "^1.0.0",
     "@typechain/ethers-v6": "^0.4.0",
     "@types/chai": "^4.2.0",
-    "solidity-coverage": "^0.8.1"
+    "solidity-coverage": "^0.8.1",
+    "undici": "^5.22.1"
   }
 }

@@ -493,7 +493,7 @@ function nextTokenIdToMint() external view returns (uint256)
 
 
 
-*The token ID of the next token to mint.*
+*The token ID of the next token to mint, start with 1.*
 
 
 #### Returns

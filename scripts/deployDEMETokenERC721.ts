@@ -11,8 +11,23 @@ async function main() {
   const contractName = "PoPP Explorer";
   const symbol = "POPE";
   const contractUri = "https://test.v1.api.poppclub.cn/im/deid/pass/contract/uri/PoPP-Explorer";
-  const gasPriceDeme = "150";//polygon=150 eth=10
-  const gasPriceUnit = "gwei";//polygon=150 eth=10
+  const gasPriceDeme = "3";//polygon=150 eth=10 goerli=3
+  const gasPriceUnit = "gwei";//polygon=150 eth=10 goerli=3
+
+  const minter = await ethers
+      .getContractFactory("Minter")
+      .then(f => f.deploy( { gasPrice: ethers.utils.parseUnits(gasPriceDeme, gasPriceUnit)}));
+  console.log(
+      "Deploying Minter \ntransaction: ",
+      minter.deployTransaction.hash,
+      "\naddress: ",
+      minter.address,
+      "\n"
+  );
+
+  await minter.deployTransaction.wait();
+  console.log("\nVerifying contract.\n");
+  await verify(minter.address, []);
 
   const demeTokenERC721 = await ethers
       .getContractFactory("DEMETokenERC721")
@@ -34,14 +49,14 @@ async function main() {
   console.log("\nVerifying contract.\n");
   await verify(demeTokenERC721.address, [caller.address, contractName, symbol, contractUri]);
 
-  // const initialize = await demeTokenERC721.connect(caller)
-  //     .initialize(caller.address, contractName, symbol
-  //         , contractUri
-  //         , { gasPrice: ethers.utils.parseUnits(gasPriceDeme, gasPriceUnit), gasLimit: 3000000});
-  // console.log(
-  //     "initialize \ntransaction: ",
-  //     initialize.hash,
-  // );
+
+  const mintRole: BytesLike = await demeTokenERC721.MINTER_ROLE();
+  const grantRole = await demeTokenERC721.connect(caller)
+      .grantRole(mintRole, minter.address, { gasPrice: ethers.utils.parseUnits(gasPriceDeme, gasPriceUnit), gasLimit: 300000 });
+  console.log(
+      "grantRole MINTER_ROLE \ntransaction: ",
+      grantRole.hash,
+  );
 
 }
 
@@ -62,6 +77,6 @@ main().catch((error) => {
 });
 
 
-// npx hardhat run scripts/deployDEMETokenERC721.ts --network polygon
+// npx hardhat run scripts/deployDEMETokenERC721.ts --network goerli
 // npx hardhat run scripts/deployDEMETokenERC721.ts --network mainnet
 

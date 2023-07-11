@@ -128,7 +128,7 @@ const config: HardhatUserConfig = {
       avalanche: process.env.SNOWTRACE_API_KEY || process.env.SCAN_API_KEY,
       avalancheFujiTestnet: process.env.SNOWTRACE_API_KEY || process.env.SCAN_API_KEY,
       optimisticEthereum: process.env.OPTIMISM_SCAN_API_KEY || process.env.SCAN_API_KEY,
-      optimisticKovan: process.env.OPTIMISM_SCAN_API_KEY || process.env.SCAN_API_KEY,
+      // optimisticKovan: process.env.OPTIMISM_SCAN_API_KEY || process.env.SCAN_API_KEY,
       arbitrumOne: process.env.ARBITRUM_SCAN_API_KEY || process.env.SCAN_API_KEY,
       arbitrumTestnet: process.env.ARBITRUM_SCAN_API_KEY || process.env.SCAN_API_KEY,
       heco: process.env.ARBITRUM_SCAN_API_KEY || process.env.SCAN_API_KEY,
@@ -169,5 +169,9 @@ config.networks = {
     chainId: 1337,
   },
 };
+
+const { ProxyAgent, setGlobalDispatcher } = require("undici");
+const proxyAgent = new ProxyAgent("http://127.0.0.1:7890");
+setGlobalDispatcher(proxyAgent);
 
 export default config;
