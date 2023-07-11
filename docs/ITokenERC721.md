@@ -97,7 +97,7 @@ function isApprovedForAll(address owner, address operator) external view returns
 ### mintTo
 
 ```solidity
-function mintTo(address to, string uri) external nonpayable returns (uint256)
+function mintTo(address to) external nonpayable returns (uint256)
 ```
 
 Lets an account with MINTER_ROLE mint an NFT.
@@ -109,7 +109,6 @@ Lets an account with MINTER_ROLE mint an NFT.
 | Name | Type | Description |
 |---|---|---|
 | to | address | The address to mint the NFT to.
-| uri | string | The URI to assign to the NFT.
 
 #### Returns
 
@@ -305,7 +304,7 @@ event ApprovalForAll(address indexed owner, address indexed operator, bool appro
 ### TokensMinted
 
 ```solidity
-event TokensMinted(address indexed mintedTo, uint256 indexed tokenIdMinted, string uri)
+event TokensMinted(address indexed mintedTo, uint256 indexed tokenIdMinted)
 ```
 
 
@@ -318,7 +317,6 @@ event TokensMinted(address indexed mintedTo, uint256 indexed tokenIdMinted, stri
 |---|---|---|
 | mintedTo `indexed` | address | undefined |
 | tokenIdMinted `indexed` | uint256 | undefined |
-| uri  | string | undefined |
 
 ### TokensMintedWithSignature
 

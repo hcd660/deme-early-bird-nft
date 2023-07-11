@@ -93,6 +93,9 @@ contract DEMETokenERC721 is
     /// @dev Contract level metadata.
     string public contractURI;
 
+    /// @dev metadata.
+    string public baseURI;
+
     /// @dev Mapping from mint request UID => whether the mint request is processed.
     mapping(bytes32 => bool) private minted;
 
@@ -105,7 +108,9 @@ contract DEMETokenERC721 is
     constructor(address _defaultAdmin,
         string memory _name,
         string memory _symbol,
-        string memory _contractURI) initializer {
+        string memory _contractURI,
+        string memory _baseURI
+    ) initializer {
 
         primarySaleRecipient = msg.sender;
         platformFeeRecipient = msg.sender;
@@ -118,6 +123,7 @@ contract DEMETokenERC721 is
 
         // Initialize this contract's state.
         contractURI = _contractURI;
+        baseURI = _baseURI;
 
         _owner = _defaultAdmin;
         _setupRole(DEFAULT_ADMIN_ROLE, _defaultAdmin);
@@ -153,13 +159,16 @@ contract DEMETokenERC721 is
 
     /// @dev Returns the URI for a tokenId
     function tokenURI(uint256 _tokenId) public view override returns (string memory) {
-        return uri[_tokenId];
+        if (_exists(_tokenId)){
+            return string.concat(baseURI, _tokenId.toString());
+        }
+        revert("invalid token id");
     }
 
     /// @dev Lets an account with MINTER_ROLE mint an NFT.
-    function mintTo(address _to, string calldata _uri) external onlyRole(MINTER_ROLE) returns (uint256) {
+    function mintTo(address _to) external onlyRole(MINTER_ROLE) returns (uint256) {
         // `_mintTo` is re-used. `mintTo` just adds a minter role check.
-        return _mintTo(_to, _uri);
+        return _mintTo(_to);
     }
 
     ///     =====   External functions  =====
@@ -186,7 +195,7 @@ contract DEMETokenERC721 is
         address signer = verifyRequest(_req, _signature);
         address receiver = _req.to;
 
-        tokenIdMinted = _mintTo(receiver, _req.uri);
+        tokenIdMinted = _mintTo(receiver);
 
         if (_req.royaltyRecipient != address(0)) {
             royaltyInfoForToken[tokenIdMinted] = RoyaltyInfo({
@@ -289,16 +298,13 @@ contract DEMETokenERC721 is
     ///     =====   Internal functions  =====
 
     /// @dev Mints an NFT to `to`
-    function _mintTo(address _to, string calldata _uri) internal returns (uint256 tokenIdToMint) {
+    function _mintTo(address _to) internal returns (uint256 tokenIdToMint) {
         tokenIdToMint = nextTokenIdToMint;
         nextTokenIdToMint += 1;
 
-        require(bytes(_uri).length > 0, "empty uri.");
-        uri[tokenIdToMint] = _uri;
-
         _safeMint(_to, tokenIdToMint);
 
-        emit TokensMinted(_to, tokenIdToMint, _uri);
+        emit TokensMinted(_to, tokenIdToMint);
     }
 
     /// @dev Returns the address of the signer of the mint request.

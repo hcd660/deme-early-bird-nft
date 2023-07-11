@@ -13,7 +13,7 @@
 ### mintTo
 
 ```solidity
-function mintTo(address to, string uri) external nonpayable returns (uint256)
+function mintTo(address to) external nonpayable returns (uint256)
 ```
 
 
@@ -25,7 +25,6 @@ function mintTo(address to, string uri) external nonpayable returns (uint256)
 | Name | Type | Description |
 |---|---|---|
 | to | address | undefined
-| uri | string | undefined
 
 #### Returns
 

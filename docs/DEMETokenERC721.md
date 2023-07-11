@@ -100,6 +100,23 @@ function balanceOf(address owner) external view returns (uint256)
 |---|---|---|
 | _0 | uint256 | undefined
 
+### baseURI
+
+```solidity
+function baseURI() external view returns (string)
+```
+
+
+
+*metadata.*
+
+
+#### Returns
+
+| Name | Type | Description |
+|---|---|---|
+| _0 | string | undefined
+
 ### burn
 
 ```solidity
@@ -403,7 +420,7 @@ function isTrustedForwarder(address forwarder) external view returns (bool)
 ### mintTo
 
 ```solidity
-function mintTo(address _to, string _uri) external nonpayable returns (uint256)
+function mintTo(address _to) external nonpayable returns (uint256)
 ```
 
 
@@ -415,7 +432,6 @@ function mintTo(address _to, string _uri) external nonpayable returns (uint256)
 | Name | Type | Description |
 |---|---|---|
 | _to | address | undefined
-| _uri | string | undefined
 
 #### Returns
 
@@ -1165,7 +1181,7 @@ event RoyaltyForToken(uint256 indexed tokenId, address indexed royaltyRecipient,
 ### TokensMinted
 
 ```solidity
-event TokensMinted(address indexed mintedTo, uint256 indexed tokenIdMinted, string uri)
+event TokensMinted(address indexed mintedTo, uint256 indexed tokenIdMinted)
 ```
 
 
@@ -1178,7 +1194,6 @@ event TokensMinted(address indexed mintedTo, uint256 indexed tokenIdMinted, stri
 |---|---|---|
 | mintedTo `indexed` | address | undefined |
 | tokenIdMinted `indexed` | uint256 | undefined |
-| uri  | string | undefined |
 
 ### TokensMintedWithSignature
 

@@ -11,12 +11,13 @@ async function main() {
   const contractName = "PoPP Explorer";
   const symbol = "POPE";
   const contractUri = "https://test.v1.api.poppclub.cn/im/deid/pass/contract/uri/PoPP-Explorer";
-  const gasPriceDeme = "3";//polygon=150 eth=10 goerli=3
+  const baseUri = "https://test.v1.api.poppclub.cn/im/deid/pass/token/uri/PoPP-Explorer/";
+  const gasPriceDeme = "15";//polygon=150 eth=10 goerli=3
   const gasPriceUnit = "gwei";//polygon=150 eth=10 goerli=3
 
   const minter = await ethers
       .getContractFactory("Minter")
-      .then(f => f.deploy( { gasPrice: ethers.utils.parseUnits(gasPriceDeme, gasPriceUnit)}));
+      .then(f => f.deploy( ));
   console.log(
       "Deploying Minter \ntransaction: ",
       minter.deployTransaction.hash,
@@ -25,18 +26,14 @@ async function main() {
       "\n"
   );
 
-  await minter.deployTransaction.wait();
-  console.log("\nVerifying contract.\n");
-  await verify(minter.address, []);
-
   const demeTokenERC721 = await ethers
       .getContractFactory("DEMETokenERC721")
       .then(f => f.deploy(
           caller.address
           , contractName
           , symbol
-          , contractUri,
-          { gasPrice: ethers.utils.parseUnits(gasPriceDeme, gasPriceUnit)}));
+          , contractUri
+          , baseUri));
   console.log(
       "Deploying DEMETokenERC721 \ntransaction: ",
       demeTokenERC721.deployTransaction.hash,
@@ -45,14 +42,10 @@ async function main() {
       "\n"
   );
 
-  await demeTokenERC721.deployTransaction.wait();
-  console.log("\nVerifying contract.\n");
-  await verify(demeTokenERC721.address, [caller.address, contractName, symbol, contractUri]);
-
 
   const mintRole: BytesLike = await demeTokenERC721.MINTER_ROLE();
   const grantRole = await demeTokenERC721.connect(caller)
-      .grantRole(mintRole, minter.address, { gasPrice: ethers.utils.parseUnits(gasPriceDeme, gasPriceUnit), gasLimit: 300000 });
+      .grantRole(mintRole, minter.address);
   console.log(
       "grantRole MINTER_ROLE \ntransaction: ",
       grantRole.hash,

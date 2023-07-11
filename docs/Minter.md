@@ -47,7 +47,7 @@ function demeCount() external view returns (uint256)
 ### mintBitkeep
 
 ```solidity
-function mintBitkeep(address _bitkeepAddress, address _nftAddress, string _uriBase, uint256 _start, uint256 _end) external nonpayable
+function mintBitkeep(address _bitkeepAddress, address _nftAddress, uint256 _start, uint256 _end) external nonpayable
 ```
 
 
@@ -60,14 +60,13 @@ function mintBitkeep(address _bitkeepAddress, address _nftAddress, string _uriBa
 |---|---|---|
 | _bitkeepAddress | address | undefined
 | _nftAddress | address | undefined
-| _uriBase | string | undefined
 | _start | uint256 | undefined
 | _end | uint256 | undefined
 
 ### mintDeme
 
 ```solidity
-function mintDeme(address _demeAddress, address _nftAddress, string _uriBase, uint256 _start, uint256 _end) external nonpayable
+function mintDeme(address _demeAddress, address _nftAddress, uint256 _start, uint256 _end) external nonpayable
 ```
 
 
@@ -80,14 +79,13 @@ function mintDeme(address _demeAddress, address _nftAddress, string _uriBase, ui
 |---|---|---|
 | _demeAddress | address | undefined
 | _nftAddress | address | undefined
-| _uriBase | string | undefined
 | _start | uint256 | undefined
 | _end | uint256 | undefined
 
 ### mintOk
 
 ```solidity
-function mintOk(address _okAddress, address _nftAddress, string _uriBase, uint256 _start, uint256 _end) external nonpayable
+function mintOk(address _okAddress, address _nftAddress, uint256 _start, uint256 _end) external nonpayable
 ```
 
 
@@ -100,7 +98,6 @@ function mintOk(address _okAddress, address _nftAddress, string _uriBase, uint25
 |---|---|---|
 | _okAddress | address | undefined
 | _nftAddress | address | undefined
-| _uriBase | string | undefined
 | _start | uint256 | undefined
 | _end | uint256 | undefined
 
