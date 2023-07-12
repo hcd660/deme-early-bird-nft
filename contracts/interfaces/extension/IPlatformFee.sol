@@ -1,5 +1,5 @@
-// SPDX-License-Identifier: Apache-2.0
-pragma solidity ^0.8.0;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.19;
 
 /**
  *  `PlatformFee` is a contract extension to be used with any base contract. It exposes functions for setting and reading
