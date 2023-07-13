@@ -12,6 +12,7 @@ import { NetworkUserConfig } from "hardhat/types";
 dotenv.config();
 
 const chainIds = {
+  opBNB: 5611,
   hardhat: 31337,
   ganache: 1337,
   mainnet: 1,
@@ -76,6 +77,12 @@ function createTestnetConfig(network: keyof typeof chainIds): NetworkUserConfig 
       break;
     case "heco":
       nodeUrl = "https://http-mainnet.hecochain.com";
+      break;
+    case "ganache":
+      nodeUrl = "http://127.0.0.1:8545";
+      break;
+    case "opBNB":
+      nodeUrl = "https://opbnb-testnet-rpc.bnbchain.org";
       break;
   }
 
@@ -146,6 +153,7 @@ const config: HardhatUserConfig = {
 
 if (testPrivateKey) {
   config.networks = {
+    ganache: createTestnetConfig("ganache"),
     mainnet: createTestnetConfig("mainnet"),
     goerli: createTestnetConfig("goerli"),
     rinkeby: createTestnetConfig("rinkeby"),
